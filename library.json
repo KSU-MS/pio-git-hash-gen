@@ -1,0 +1,33 @@
+{
+    "name": "pio-git-hash-gen",
+    "version": "0.0.1",
+    "repository":
+    {
+      "type": "git",
+      "url": "https://github.com/KSU-MS/pio-git-hash-gen"
+    },
+    "export": {
+        "include": [
+          "*.c",
+          "*.cpp",
+          "*.h",
+          "generator"
+        ],
+        "exclude": [
+          "generator/**/__pycache__"
+        ]
+      },
+      "build": {
+        "extraScript": "pio-git-hash-gen.py",
+        "includeDir": "",
+        "srcDir": "",
+        "srcFilter": [
+          "+<*.cpp>",
+          "+<*.c>",
+          "+<*.h>",
+          "+<*.hpp>"
+        ]
+      },
+    "frameworks": "*",
+    "platforms": "*"
+  }

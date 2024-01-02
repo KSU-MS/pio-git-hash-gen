@@ -1,22 +1,14 @@
-import pkg_resources
-
-Import("env")
-required_pkgs = {'dulwich'}
-installed_pkgs = {pkg.key for pkg in pkg_resources.working_set}
-missing_pkgs = required_pkgs - installed_pkgs
-
-if missing_pkgs:
-    env.Execute('"$PYTHONEXE" -m pip install dulwich --global-option="--pure"')
-
-from dulwich import porcelain
+Import("projenv")
+import subprocess
 
 def get_firmware_specifier_build_flag():
-    build_version = porcelain.describe('.')  # '.' refers to the repository root dir
-    print(build_version)
-    return (build_version)
+    build_version  = subprocess.run(['git', 'rev-parse','--short', 'HEAD'], stdout=subprocess.PIPE).stdout.decode('utf-8')
+    build_version.strip()
+    print((build_version))
+    return int(build_version,16)
 
-
-env.Append(CPPDEFINES=[
-    ("AUTO_VERSION",env.StringifyMacro(get_firmware_specifier_build_flag()))
+fw_flag=get_firmware_specifier_build_flag()
+projenv.Append(CPPDEFINES=[
+    ("AUTO_VERSION",fw_flag)
 ]
 )

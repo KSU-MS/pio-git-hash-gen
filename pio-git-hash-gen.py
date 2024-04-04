@@ -17,8 +17,16 @@ def get_project_main_or_master():
         ['git', '-C', path, 'rev-parse', '--abbrev-ref','HEAD'], stdout=subprocess.PIPE).stdout.decode('utf-8')
     main_or_master.strip()
     project_is_main_or_master = ('main' in main_or_master.lower()) or ('master' in main_or_master.lower())
-    print("MAIN OR MASTER: " + (main_or_master) + " BOOL: " + str(project_is_main_or_master))
-    return int(project_is_main_or_master)
+
+    project_is_testing = ('testing' in main_or_master.lower())
+    if project_is_main_or_master:
+        branch_enum = 1
+    elif project_is_testing:
+        branch_enum = 2
+    else:
+        branch_enum = 0
+    print("MAIN OR MASTER: " + (main_or_master) + "ENUM: " + str(branch_enum))
+    return int(branch_enum)
 
 
 def get_project_is_dirty():

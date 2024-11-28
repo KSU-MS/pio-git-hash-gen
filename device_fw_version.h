@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <cstddef>
 #include <stdio.h>
+#include <array>
 
 #ifndef AUTO_VERSION
 #warning "AUTO_VERSION was not defined by the generator!"

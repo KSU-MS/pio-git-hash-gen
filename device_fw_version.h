@@ -25,7 +25,7 @@ struct device_status_t
     const bool project_is_dirty = FW_PROJECT_IS_DIRTY;
 };
 
-std::array<char, 8> convert_version_to_char_arr(uint32_t hex_ver)
+inline std::array<char, 8> convert_version_to_char_arr(uint32_t hex_ver)
 {
     std::array<char, 8> ver_str;
     (void)snprintf(ver_str.data(), 8, "%x", hex_ver);

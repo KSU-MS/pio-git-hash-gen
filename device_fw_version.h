@@ -19,17 +19,16 @@
 #endif
 
 // ideally little endian bc teensy
-struct device_status_t
-{
-    const uint32_t firmware_version = AUTO_VERSION;
-    const bool project_on_main_or_master = FW_PROJECT_IS_MAIN_OR_MASTER;
-    const bool project_is_dirty = FW_PROJECT_IS_DIRTY;
+struct device_status_t final {
+    static constexpr uint32_t firmware_version = AUTO_VERSION;
+    static constexpr bool project_on_main_or_master = FW_PROJECT_IS_MAIN_OR_MASTER;
+    static constexpr bool project_is_dirty = FW_PROJECT_IS_DIRTY;
 };
 
-inline std::array<char, 8> convert_version_to_char_arr(uint32_t hex_ver)
+inline std::array<char, 9> convert_version_to_char_arr(uint32_t hex_ver)
 {
-    std::array<char, 8> ver_str;
-    (void)snprintf(ver_str.data(), 8, "%x", hex_ver);
+    std::array<char, 9> ver_str;
+    (void)snprintf(ver_str.data(), 9, "%x", static_cast<unsigned int>(hex_ver));
     return ver_str;
 }
 
